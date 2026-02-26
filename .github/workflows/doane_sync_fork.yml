@@ -1,0 +1,23 @@
+name: Doane Sync Fork
+
+on:
+  schedule:
+    - cron: '0 13 * * 1'
+  workflow_dispatch:       # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Sync with upstream
+        run: |
+          git remote add upstream https://github.com/conductor-oss/conductor.git
+          git fetch upstream --tags
+          git checkout main
+          git merge upstream/main
+          git push origin main --tags
