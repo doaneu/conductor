@@ -3,7 +3,7 @@ name: Doane Sync Fork
 on:
   schedule:
     - cron: '0 13 * * 1'
-  workflow_dispatch:       # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -21,8 +21,9 @@ jobs:
           git remote add upstream https://github.com/conductor-oss/conductor.git
           git fetch upstream --tags
           git checkout main
-          git merge upstream/main
+          git merge upstream/main || true
+          git checkout HEAD -- .github/workflows/
           find .github/workflows/ -type f ! -name 'doane_sync_fork.yml' -delete
-          git add .github/workflows/
-          git diff --staged --quiet || git commit -m "Remove upstream workflows"
+          git add .
+          git diff --staged --quiet || git commit -m "Merge upstream, remove upstream workflows"
           git push origin main --tags
