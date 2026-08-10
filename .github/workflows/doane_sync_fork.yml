@@ -25,4 +25,5 @@ jobs:
           find .github/workflows/ -type f ! -name 'doane_sync_fork.yml' -delete
           git add .
           git diff --staged --quiet || git commit -m "Merge upstream, remove upstream workflows"
-          git push origin main --tags
+          git push origin main
+          git push origin --tags --force
