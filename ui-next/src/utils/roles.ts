@@ -1,8 +1,11 @@
 import {
   roleAdmin,
   roleCustom,
+  roleEventHandlerManager,
+  roleHumanTaskManager,
   roleMetaManager,
   roleReadOnly,
+  roleScheduleManager,
   roleUser,
   roleWfManager,
 } from "theme/tokens/colors";
@@ -14,26 +17,28 @@ export const roleLabel: { [key: string]: string } = {
   [Role.USER]: "User",
   [Role.METADATA_MANAGER]: "Metadata manager",
   [Role.WORKFLOW_MANAGER]: "Workflow manager",
+  [Role.HUMAN_TASK_MANAGER]: "Human task manager",
+  [Role.EVENT_HANDLER_MANAGER]: "Event handler manager",
+  [Role.SCHEDULE_MANAGER]: "Schedule manager",
   [Role.USER_READ_ONLY]: "Read only user",
 };
 
-export const userRoleColorGenerator = (role: string) => {
-  let tagColor;
-  if (role === Role.ADMIN) {
-    tagColor = roleAdmin;
-  } else if (role === Role.USER) {
-    tagColor = roleUser;
-  } else if (role === Role.WORKFLOW_MANAGER) {
-    tagColor = roleWfManager;
-  } else if (role === Role.METADATA_MANAGER) {
-    tagColor = roleMetaManager;
-  } else if (role === Role.USER_READ_ONLY) {
-    tagColor = roleReadOnly;
-  } else {
-    tagColor = roleCustom;
-  }
-  return { backgroundColor: tagColor };
+export const displayRoleName = (role: string) => roleLabel[role] || role;
+
+const roleColor: { [key: string]: string } = {
+  [Role.ADMIN]: roleAdmin,
+  [Role.USER]: roleUser,
+  [Role.WORKFLOW_MANAGER]: roleWfManager,
+  [Role.METADATA_MANAGER]: roleMetaManager,
+  [Role.USER_READ_ONLY]: roleReadOnly,
+  [Role.HUMAN_TASK_MANAGER]: roleHumanTaskManager,
+  [Role.EVENT_HANDLER_MANAGER]: roleEventHandlerManager,
+  [Role.SCHEDULE_MANAGER]: roleScheduleManager,
 };
+
+export const userRoleColorGenerator = (role: string) => ({
+  backgroundColor: roleColor[role] ?? roleCustom,
+});
 
 export const sortRoles = (roles?: AccessRole[]) =>
   (roles ?? []).sort((a: { name: string }, b: { name: string }) => {

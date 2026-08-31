@@ -776,6 +776,15 @@ export const roleWfManager = "#8DE0F9";
 //metadata-manager
 export const roleMetaManager = "#FCD181";
 
+//human-task-manager
+export const roleHumanTaskManager = "#FFBEA4";
+
+//event-handler-manager
+export const roleEventHandlerManager = "#BAB9F1";
+
+//schedule-manager
+export const roleScheduleManager = "#9EE0C8";
+
 //custom
 export const roleCustom = "#F4A8A0";
 
